@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baymax Demo Control Panel</title>
+
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>🤖 Baymax Demo Dashboard</h1>
+
+        <p class="subtitle">
+            Jetson-hosted multimodal robot presentation interface
+        </p>
+
+        <div class="grid">
+
+            <button class="demo-button talk" id="talkBtn" onclick="startFreeCommunication()">
+                Talk to Baymax
+            </button>
+
+            <button class="demo-button fer" onclick="runEmotionDetection()">
+                Emotion Detection + Speech
+            </button>
+
+            <button class="demo-button intro" onclick="runIntro()">
+                Introduction Speech
+            </button>
+
+            <button class="demo-button closing" onclick="runClosing()">
+                Closing Speech
+            </button>
+
+        </div>
+
+        <div class="status-box">
+            <h2>Status</h2>
+            <div id="listening-indicator" style="display:none; font-weight:bold; color:#e74c3c; margin-bottom:8px;">
+                🎙 Listening...
+            </div>
+            <pre id="status">Ready.</pre>
+        </div>
+
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

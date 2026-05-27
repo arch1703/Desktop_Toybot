@@ -1,0 +1,93 @@
+body {
+    margin-bottom: 40px;
+}
+
+h1{
+    text-align: center;
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.subtitle{
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.demo-button {
+    border: none;
+    border-radius: 18px;
+    padding: 40px 20px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    color: white;
+}
+
+.demo-button:hover {
+    transform: scale(1.04);
+}
+
+.kids {
+    background: #ef4444;
+}
+
+.young {
+    background: #22c55e;
+}
+
+.adult {
+    background: #eab308;
+    color: black;
+}
+
+.fer {
+    background: #3b82f6;
+}
+
+.talk {
+    background: #10b981;
+}
+
+.talk:disabled {
+    background: #6b7280;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.story {
+    background: #8b5cf6;
+}
+
+.intro {
+    background: #06b6d4;
+}
+
+.closing {
+    background: #f97316;
+}
+
+.status-box {
+    margin-top: 40px;
+    background: #1e293b;
+    border-radius: 18px;
+    padding: 20px;
+}
+
+.status-box h2{
+    color: white;
+}
+
+#status {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 16px;
+    color: white;
+}
