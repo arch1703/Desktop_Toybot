@@ -72,6 +72,48 @@ Key variables used in jetson_backend/app/main.py:
 
 Create a .env in jetson_backend with your deployment values.
 
+## AI Stack on Jetson
+
+The Jetson service acts as the orchestration layer for perception, language, and action.
+
+AI and runtime components:
+- FastAPI application runtime (`jetson_backend/app/main.py`) as the central control plane
+- FER ONNX inference pipeline (`jetson_backend/app/fer_onnx_manager.py`) for face/emotion-based context
+- Voice and audio command processing (`jetson_backend/app/voice_commands.py`, audio endpoints in `main.py`)
+- LLM request handling (`/llm/chat`, `/audio/chat`, `/audio/story`) with optional Gemini API key
+- Mode manager + robot policy mapping (`mode_manager.py`, `robot_controller.py`) for safe behavior routing
+- Tool/action registry pattern (`tools_registry.py`) to constrain callable robot actions
+
+High-level inference loop on Jetson:
+1. Capture user intent from web UI action, voice endpoint, or camera-triggered flow.
+2. Classify context (mode + optional FER signals).
+3. Route through deterministic validators/tool mapping.
+4. Dispatch approved action to Raspberry Pi via `pi_client.py`.
+5. Broadcast updated robot state to all UI clients over WebSocket (`/ws`).
+
+This structure keeps fast control logic local on Jetson while delegating hardware execution to Pi.
+
+## Demo Web Server
+
+The demo web server is served directly by the Jetson backend.
+
+How it is built:
+- Static frontend assets live in `jetson_backend/static/` (`index.html`, `app.js`, `style.css`)
+- FastAPI mounts `/static` and serves the main UI route (`/`)
+- A WebSocket channel (`/ws`) pushes live state updates (mode, last command/action, Pi connectivity, eye/LED state)
+- REST endpoints are used for explicit actions (mode switch, robot action, audio/LLM requests, diagnostics)
+
+Demo capabilities exposed by the web server:
+- Real-time mode switching and state reflection
+- Command-triggered robot behaviors via Jetson -> Pi proxying
+- Camera-assisted and FER-assisted interactions
+- Voice-to-action and chat-style interactions via audio + LLM endpoints
+
+Why this is useful for demos:
+- Single browser entry point on port 8000
+- Clear separation between UI/control logic (Jetson) and hardware execution (Pi)
+- Easy observability via `/health`, `/state`, `/pi/status`, and `/docs`
+
 ## Health and Diagnostics
 
 - Jetson health: GET /health
